@@ -29,6 +29,14 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEmailAndPassword(email, password);
 	}
 
+	@Override
+	public User search(Long userId) {
+		// TODO Auto-generated method stub
+		
+		//just testing 3
+		return userRepository.findById(userId).orElse(null);
+	}
+
 
 
 }

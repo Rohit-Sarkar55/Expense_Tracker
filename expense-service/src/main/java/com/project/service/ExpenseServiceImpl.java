@@ -1,5 +1,6 @@
 package com.project.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,43 @@ public class ExpenseServiceImpl implements ExpenseService {
 		repository.deleteById(id);
 		
 	}
+
+	@Override
+	public List<Expense> getExpenseByTransactionType(String type) {
+		return repository.findAllByTransactionType(type);
+	}
+
+	@Override
+	public List<Expense> getAllByUserIdAndTransactionType(long userId, String type) {
+		return repository.findAllByUserIdAndTransactionType(userId, type);
+	}
+
+	@Override
+	public List<Expense> getAllByUserIdAndCategoryId(long userId, long categoryId) {
+		return repository.findAllByUserIdAndCategoryId(userId, categoryId);
+	}
+
+	@Override
+	public List<Expense> getAllByUserIdAndDate(long userId, LocalDate date) {
+		return repository.findAllByUserIdAndExpenseDate(userId, date);
+	}
+
+	@Override
+	public List<Expense> getAllByDateAndTransactionType(LocalDate date, String type) {
+		return repository.findAllByExpenseDateAndTransactionType(date, type);
+	}
+
+	@Override
+	public List<Expense> getAllAmountByUserIdAndTransactionType(long userId ,String type) {
+		// TODO Auto-generated method stub
+		return repository.findAllAmountByUserIdAndTransactionType(userId, type);
+	}
+
+	
+
+	
+
+	
 
 
 }

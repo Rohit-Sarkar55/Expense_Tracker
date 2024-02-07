@@ -182,5 +182,34 @@ public class ExpenseController {
 		}
 	
 	}
+	@GetMapping("byDateAndByTransactionType")
+	public ResponseEntity<List<Expense>> getbyDateAndTransactionType(@RequestParam String strDate,@RequestParam String type)
+	{
+		DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date=LocalDate.parse(strDate, formatter);
+		List<Expense> list=expenseService.getAllByDateAndTransactionType(date, type);
+		if(!list.isEmpty())
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+		else
+		{
+			return ResponseEntity.noContent().build();
+		}
+	}
+	@GetMapping("amountByTransactionType/{userId}/{transactionType}")
+	public ResponseEntity<Double> getAllAmountByTransactionType(@PathVariable long userId, @PathVariable String transactionType)
+	{
+		List<Expense> ex= (List<Expense>) expenseService.getAllAmountByUserIdAndTransactionType(userId, transactionType);
+		double a=ex.stream().mapToDouble(Expense:: getAmount).sum();
+		return ResponseEntity.status(HttpStatus.OK).body(a);
+		
+	}
+//	@GetMapping("byMonth")
+//	public ResponseEntity<List<Expense>> getByUserIdAndMonth(@PathVariable long userId,@PathVariable String month)
+//	{
+//		List<Expense> expense=
+//	}
+	
 
 }

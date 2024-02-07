@@ -14,5 +14,8 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 	List<Expense> findAllByUserIdAndTransactionType(long userId,String type);
 	List<Expense> findAllByUserIdAndCategoryId(long userId,long categoryId);
 	List<Expense> findAllByUserIdAndExpenseDate(long userId,LocalDate date);
+	List<Expense> findAllByExpenseDateAndTransactionType(LocalDate date,String type);
+	List<Expense> findAllAmountByUserIdAndTransactionType(long userId,String type);
+	
 
 }

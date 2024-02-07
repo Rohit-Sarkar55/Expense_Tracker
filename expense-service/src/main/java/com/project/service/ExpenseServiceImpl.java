@@ -66,5 +66,22 @@ public class ExpenseServiceImpl implements ExpenseService {
 		return repository.findAllByUserIdAndExpenseDate(userId, date);
 	}
 
+	@Override
+	public List<Expense> getAllByDateAndTransactionType(LocalDate date, String type) {
+		return repository.findAllByExpenseDateAndTransactionType(date, type);
+	}
+
+	@Override
+	public List<Expense> getAllAmountByUserIdAndTransactionType(long userId ,String type) {
+		// TODO Auto-generated method stub
+		return repository.findAllAmountByUserIdAndTransactionType(userId, type);
+	}
+
+	
+
+	
+
+	
+
 
 }

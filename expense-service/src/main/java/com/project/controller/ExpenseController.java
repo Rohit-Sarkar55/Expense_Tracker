@@ -75,19 +75,19 @@ public class ExpenseController {
 //		return expenseService.viewAll();
 //		
 //	}
-	@GetMapping("")
-	public ResponseEntity<List<Expense>> viewAllExpense()
-	{
-		List<Expense> expense4=expenseService.viewAll();
-		if(!expense4.isEmpty())
-		{
-			return ResponseEntity.status(HttpStatus.OK).body(expense4);
-		}
-		else
-		{
-			return ResponseEntity.noContent().build();
-		}
-	}
+//	@GetMapping("")
+//	public ResponseEntity<List<Expense>> viewAllExpense()
+//	{
+//		List<Expense> expense4=expenseService.viewAll();
+//		if(!expense4.isEmpty())
+//		{
+//			return ResponseEntity.status(HttpStatus.OK).body(expense4);
+//		}
+//		else
+//		{
+//			return ResponseEntity.noContent().build();
+//		}
+//	}
 
 	@PutMapping("update")
 	public ResponseEntity<?> update(@RequestBody Expense expense)

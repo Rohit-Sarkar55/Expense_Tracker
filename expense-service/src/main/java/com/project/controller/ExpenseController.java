@@ -1,5 +1,8 @@
 package com.project.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,8 +121,105 @@ public class ExpenseController {
 		}
 		
 	}
+	@GetMapping("byTransactionType/{transactionType}")
+	public ResponseEntity<List<Expense>> getByTransactionType(@PathVariable String transactionType)
+	{
+		List<Expense> list = expenseService.getExpenseByTransactionType(transactionType);
+		if(!list.isEmpty())
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+		else
+		{
+			return ResponseEntity.noContent().build();
+		}
+	}
+//	 public List<Expense> getByTransactionType(@PathVariable String transactionType)
+//	 {
+//		return expenseService.getExpenseByTransactionType(transactionType);
+//	 }
+//	
+	@GetMapping("byUserIdandbyTransactionType/{userId}/{transactionType}")
+	public ResponseEntity<List<Expense>> getByUserIdAndTransactionType(@PathVariable long userId , @PathVariable String transactionType)
+	{
+		List<Expense> list = expenseService.getAllByUserIdAndTransactionType(userId, transactionType);
+		if(!list.isEmpty())
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+		else
+		{
+			return ResponseEntity.noContent().build();
+		}
+	}
+	@GetMapping("byUserIdandbyCategory")
+	public ResponseEntity<List<Expense>> getByUserIdAndCategory(@RequestParam long userId,@RequestParam long categoryId)
+	{
+
+		List<Expense> list = expenseService.getAllByUserIdAndCategoryId(userId, categoryId);
+		if(!list.isEmpty())
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+		else
+		{
+			return ResponseEntity.noContent().build();
+		}
 	
+	}
+	@GetMapping("byUserIdandbyDate")
+	public ResponseEntity<List<Expense>> getByUserIdAndDate(@RequestParam long userId,@RequestParam String dateStr)
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(dateStr, formatter);
+		List<Expense> list = expenseService.getAllByUserIdAndDate(userId, date);
+		if(!list.isEmpty())
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+		else
+		{
+			return ResponseEntity.noContent().build();
+		}
 	
+	}
+	@GetMapping("byDateAndByTransactionType")
+	public ResponseEntity<List<Expense>> getbyDateAndTransactionType(@RequestParam String strDate,@RequestParam String type)
+	{
+		DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date=LocalDate.parse(strDate, formatter);
+		List<Expense> list=expenseService.getAllByDateAndTransactionType(date, type);
+		if(!list.isEmpty())
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+		else
+		{
+			return ResponseEntity.noContent().build();
+		}
+	}
+	@GetMapping("amountByTransactionType/{userId}/{transactionType}")
+	public ResponseEntity<Double> getAllAmountByTransactionType(@PathVariable long userId, @PathVariable String transactionType)
+	{
+		List<Expense> ex= (List<Expense>) expenseService.getAllAmountByUserIdAndTransactionType(userId, transactionType);
+		double a=ex.stream().mapToDouble(Expense:: getAmount).sum();
+		return ResponseEntity.status(HttpStatus.OK).body(a);
+		
+	}
+	@GetMapping("{userId}/byMonth/{month}")
+	public ResponseEntity<List<Expense>> getByUserIdAndMonth(@PathVariable long userId,@PathVariable String month)
+	{
+		
+		List<Expense> ex=expenseService.getAllByUserId(userId);
+		List<Expense> expense=new ArrayList<>();
+		for(Expense e:ex)
+		{
+			if(e.getExpenseDate().getMonth().toString().toLowerCase().equals(month.toLowerCase()) ) {
+				expense.add(e);
+			}
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(expense);
+	}
 	
 
 }

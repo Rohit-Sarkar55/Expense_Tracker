@@ -220,6 +220,22 @@ public class ExpenseController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(expense);
 	}
+
+	@GetMapping("byUserId/{userId}")
+	public ResponseEntity<List<Expense>> viewByUserId(@PathVariable long userId)
+	{
+		List<Expense> list=expenseService.getAllByUserId(userId);
+		if(!list.isEmpty())
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+		else
+		{
+			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	
 	
 
 }

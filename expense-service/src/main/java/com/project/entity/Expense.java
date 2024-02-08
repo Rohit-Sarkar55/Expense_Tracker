@@ -1,6 +1,7 @@
 package com.project.entity;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -63,6 +64,12 @@ public class Expense {
 	}
 	public void setReceiptAttachment(byte[] receiptAttachment) {
 		this.receiptAttachment = receiptAttachment;
+	}
+	@Override
+	public String toString() {
+		return "Expense [expenseId=" + expenseId + ", userId=" + userId + ", expenseDate=" + expenseDate + ", amount="
+				+ amount + ", categoryId=" + categoryId + ", transactionType=" + transactionType
+				+ ", receiptAttachment=" + Arrays.toString(receiptAttachment) + "]";
 	}
 	
 }

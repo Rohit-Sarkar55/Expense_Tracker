@@ -77,6 +77,11 @@ public class ExpenseServiceImpl implements ExpenseService {
 		return repository.findAllAmountByUserIdAndTransactionType(userId, type);
 	}
 
+	@Override
+	public List<Expense> getAllByUserId(long userId) {
+		return repository.findAllByUserId(userId);
+	}
+
 	
 
 	

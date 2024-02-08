@@ -18,5 +18,6 @@ public interface ExpenseService {
 	List<Expense> getAllByUserIdAndDate(long userId,LocalDate date);
 	List<Expense> getAllByDateAndTransactionType(LocalDate date,String type);
 	List<Expense> getAllAmountByUserIdAndTransactionType(long userId ,String type);
+	List<Expense> getAllByUserId(long userId);
 
 }

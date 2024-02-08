@@ -1,5 +1,8 @@
 package com.project.client;
 
-public interface ExpenseFeign {
+import org.springframework.cloud.openfeign.FeignClient;
 
+@FeignClient("EXPENSE-SERVICE")
+public interface ExpenseFeign {
+	
 }

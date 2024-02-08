@@ -205,11 +205,6 @@ public class ExpenseController {
 		return ResponseEntity.status(HttpStatus.OK).body(a);
 		
 	}
-//	@GetMapping("byMonth")
-//	public ResponseEntity<List<Expense>> getByUserIdAndMonth(@PathVariable long userId,@PathVariable String month)
-//	{
-//		List<Expense> expense=
-//	}
-	
+
 
 }

@@ -2,6 +2,7 @@ package com.project.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -205,11 +206,20 @@ public class ExpenseController {
 		return ResponseEntity.status(HttpStatus.OK).body(a);
 		
 	}
-//	@GetMapping("byMonth")
-//	public ResponseEntity<List<Expense>> getByUserIdAndMonth(@PathVariable long userId,@PathVariable String month)
-//	{
-//		List<Expense> expense=
-//	}
+	@GetMapping("{userId}/byMonth/{month}")
+	public ResponseEntity<List<Expense>> getByUserIdAndMonth(@PathVariable long userId,@PathVariable String month)
+	{
+		
+		List<Expense> ex=expenseService.getAllByUserId(userId);
+		List<Expense> expense=new ArrayList<>();
+		for(Expense e:ex)
+		{
+			if(e.getExpenseDate().getMonth().toString().toLowerCase().equals(month.toLowerCase()) ) {
+				expense.add(e);
+			}
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(expense);
+	}
 	
 
 }

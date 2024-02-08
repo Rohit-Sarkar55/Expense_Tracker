@@ -3,10 +3,13 @@ package com.project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.dto.LoginDto;
@@ -26,9 +29,9 @@ public class UserController {
 			User user1 = userService.addOrUpdateUser(user);
 			return ResponseEntity.ok().body(user1);
 		} catch (Exception e) {
-			ResponseDto response=new ResponseDto();
+			ResponseDto response = new ResponseDto();
 			response.setMessage("failed");
-			return new ResponseEntity<ResponseDto>(response,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<ResponseDto>(response, HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -38,9 +41,9 @@ public class UserController {
 			User user1 = userService.addOrUpdateUser(user);
 			return ResponseEntity.ok().body(user1);
 		} catch (Exception e) {
-			ResponseDto response=new ResponseDto();
+			ResponseDto response = new ResponseDto();
 			response.setMessage("failed");
-			return new ResponseEntity<ResponseDto>(response,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<ResponseDto>(response, HttpStatus.BAD_REQUEST);
 		}
 
 	}
@@ -55,10 +58,27 @@ public class UserController {
 				throw new Exception();
 
 		} catch (Exception e) {
-			ResponseDto response=new ResponseDto();
+			ResponseDto response = new ResponseDto();
 			response.setMessage("wrong credentials");
-			return new ResponseEntity<ResponseDto>(response,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<ResponseDto>(response, HttpStatus.BAD_REQUEST);
 		}
+	}
+
+	@GetMapping("{userId}")
+	public ResponseEntity<?> searchByUserId(@PathVariable long userId) {
+		try {
+			User user = userService.search(userId);
+			if (user != null) {
+				return ResponseEntity.ok().body(user);
+			} else
+				throw new Exception();
+
+		} catch (Exception e) {
+			ResponseDto response = new ResponseDto();
+			response.setMessage("No user found");
+			return new ResponseEntity<ResponseDto>(response, HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 }

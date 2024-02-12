@@ -8,7 +8,7 @@ const About=()=>{
             <form method="">
                 <div className="row">
                     <div className="col-md-4">
-                        <img src={image} />
+                        <img src={image} alt="aleternateimage"/>
                     </div>
                     <div className="col-md-6">
                         <div className="profile-head">

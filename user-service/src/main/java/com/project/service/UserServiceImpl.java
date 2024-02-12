@@ -17,11 +17,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
-//	@Override
-//	public User search(Long userId) {
-//		// TODO Auto-generated method stub
-//		return userRepository.findById(userId).orElse(null);
-//	}
+	@Override
+	public User search(Long userId) {
+		// TODO Auto-generated method stub
+		return userRepository.findById(userId).orElse(null);
+	}
 
 	@Override
 	public User login(String email, String password) {
@@ -29,13 +29,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEmailAndPassword(email, password);
 	}
 
-	@Override
-	public User search(Long userId) {
-		// TODO Auto-generated method stub
-		
-		//just testing 3
-		return userRepository.findById(userId).orElse(null);
-	}
+
 
 
 

@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.TableGenerator;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
 public class User {
@@ -18,6 +19,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "user_seq")
 	private long userId;
 	private String fullName;
+	@Column(unique = true)
 	private String email;
 	private String password;
 	private byte[] profilePicture;

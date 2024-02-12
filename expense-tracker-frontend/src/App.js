@@ -1,7 +1,7 @@
 
 import Navbar from './Navbar';
 import Home from './Home';
-import About from './Components/About/About';
+import UserProfile from './Components/UserProfile/UserProfile';
 
 function App() {
   return (
@@ -9,7 +9,8 @@ function App() {
      
       <div className="content">
        <Home /> <Navbar />
-       <About />
+       
+       <UserProfile userId={202401}/>
       </div>
     </div>
   );

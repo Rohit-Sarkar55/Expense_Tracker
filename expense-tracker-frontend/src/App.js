@@ -11,8 +11,7 @@ function App() {
       <Navbar />
       
       <div className="content">
-       <Home /> 
-       <About />
+       
       </div>
     </div>
   );

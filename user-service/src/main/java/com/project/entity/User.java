@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.TableGenerator;
 
 @Entity
@@ -22,9 +23,18 @@ public class User {
 	private String password;
 	private byte[] profilePicture;
 	private long phoneNo;
+	
+	@Column
 	private LocalDate dateOfRegistration;
 	private LocalDateTime lastLoginTimeStamp;
-
+	
+	
+	@PrePersist
+	private void prePersist() {
+		this.dateOfRegistration = LocalDate.now();
+	}
+	
+	
 	public long getUserId() {
 		return userId;
 	}

@@ -2,6 +2,8 @@ import React from "react";
 import image from "../About/image/DP-images-16.jpg"
 
 const About=()=>{
+    const userInfo = localStorage.getItem("user-info");
+    console.log(userInfo);
     return(
         <>
         <div className="container emp-profile">

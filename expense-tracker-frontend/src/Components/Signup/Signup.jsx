@@ -6,12 +6,13 @@ const AuthForm = () => {
 
   const [signInData, setSignInData] = useState({ email: '', password: '' });
   const [signUpData, setSignUpData] = useState({
-    fullName: '',
+fullName: 'zaaa',
     userEmail: '',
     password: '',
     confirmPassword: '',
     phoneNo: '',
   });
+  const [errors, setErrors] = useState({});
 
   const handleSignInChange = (e) => {
     const { name, value } = e.target;
@@ -46,16 +47,45 @@ const AuthForm = () => {
       }
 
       const data = await response.json();
-      console.log('Authentication successful:', data);
+      console.alert('Authentication successful:', data);
       localStorage.setItem("user-info" ,"JSON.stringify(data)");
+            
 
     }catch(error){
-        console.log("Error during SignIn " + error.message);
+        console.alert("Error during SignIn " + error.message);
     }
 
 
 
     console.log('Sign In:', signInData);
+  };
+
+
+  const validateSignUpForm = () => {
+    const errors = {};
+
+    if (!signUpData.fullName.trim()) {
+      errors.fullName = 'Full Name is required';
+    }
+
+    if (!signUpData.userEmail.trim()) {
+      errors.userEmail = 'Email is required';
+    } else if (!/^\S+@\S+\.\S+$/.test(signUpData.userEmail)) {
+      errors.userEmail = 'Invalid email format';
+    }
+
+    if (!signUpData.password.trim()) {
+      errors.password = 'Password is required';
+    } else if (signUpData.password.length < 6) {
+      errors.password = 'Password must be at least 6 characters long';
+    }
+
+    if (signUpData.password !== signUpData.confirmPassword) {
+      errors.confirmPassword = 'Passwords do not match';
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0; // Return true if no errors
   };
 
   const handleSignUpSubmit = async(e) => {
@@ -65,12 +95,13 @@ const AuthForm = () => {
         console.log('Sign Up:', signUpData);
   
         // Replace the following URL with your signup API endpoint
+        if(validateSignUpForm()){
         const apiUrl = 'http://localhost:8081/user/signup';
         const userDetails = {
-            fullname:signUpData.fullName,
+            fullName:signUpData.fullName,
             email: signUpData.userEmail,
             phoneNo: signUpData.password,
-            password: (signUpData.password === signUpData.confirmPassword)? signUpData.password : null 
+            password: (signUpData.password === signUpData.confirmPassword)? signUpData.password : null
         }
         const response = await fetch(apiUrl, {
           method: 'POST',
@@ -85,7 +116,12 @@ const AuthForm = () => {
         }
   
         const data = await response.json();
-        console.log('Signup successful:', data);
+        console.alert('Signup successful:', data);
+        handleToggleForm();
+
+    }else{
+        console.log('Form has errors. Please fix them. ' + errors);
+    }
   
         // Add additional logic based on the response from the signup API
       } catch (error) {

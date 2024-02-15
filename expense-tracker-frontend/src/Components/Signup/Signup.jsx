@@ -6,7 +6,7 @@ const AuthForm = () => {
 
   const [signInData, setSignInData] = useState({ email: '', password: '' });
   const [signUpData, setSignUpData] = useState({
-fullName: 'zaaa',
+    fullName: '',
     userEmail: '',
     password: '',
     confirmPassword: '',
@@ -47,12 +47,12 @@ fullName: 'zaaa',
       }
 
       const data = await response.json();
-      console.alert('Authentication successful:', data);
-      localStorage.setItem("user-info" ,"JSON.stringify(data)");
+      console.log('Authentication successful:', data);
+     localStorage.setItem("user-info" ,JSON.stringify(data));
             
 
     }catch(error){
-        console.alert("Error during SignIn " + error.message);
+        console.log("Error during SignIn " + error.message);
     }
 
 
@@ -100,9 +100,13 @@ fullName: 'zaaa',
         const userDetails = {
             fullName:signUpData.fullName,
             email: signUpData.userEmail,
-            phoneNo: signUpData.password,
-            password: (signUpData.password === signUpData.confirmPassword)? signUpData.password : null
+            
+            phoneNo: signUpData.phoneNo,
+            password:  signUpData.password
+            
         }
+
+        console.log(userDetails);
         const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
@@ -116,7 +120,7 @@ fullName: 'zaaa',
         }
   
         const data = await response.json();
-        console.alert('Signup successful:', data);
+        console.log('Signup successful:', data);
         handleToggleForm();
 
     }else{
@@ -125,7 +129,7 @@ fullName: 'zaaa',
   
         // Add additional logic based on the response from the signup API
       } catch (error) {
-        console.error('Error during sign-up:', error.message);
+        console.log('Error during sign-up:', error.message);
         // Handle the error, e.g., display an error message to the user
       }
     console.log('Sign Up:', signUpData);
